@@ -1,0 +1,118 @@
+---
+title: "R Refresh"
+author: "Andrea Fox"
+date: "September 6, 2020"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Packages
+```{r}
+library(readxl)
+library(ggplot2)
+library(dplyr)
+library(pastecs)
+```
+
+## 1 - Import, Plot, Summarize, and Save Data
+
+```
+For this question I first loaded in the libraries I was going to need. Then I read in the excel file that I planned on using to work with from the US Bureau of Labor Statistics. I cannot seem to find the link for the dataset I used. I had a hard time finding a file to work with at first, but ended up using Quarter 1 2020 wage data for Agriculture, Forestry, and Fishing. 
+```
+
+### Load in data
+```{r}
+df <- read.csv('q12020.csv')
+```
+
+### Snippet of data to verify loaded correctly
+```{r}
+head(df)
+```
+
+### List of variables
+```{r}
+ls(df)
+```
+
+### Summarize variables
+#### Month 1
+```{r}
+stat.desc(df$month1_emplvl)
+```
+#### Month 2
+```{r}
+stat.desc(df$month2_emplvl)
+```
+#### Month 3
+```{r}
+stat.desc(df$month3_emplvl)
+```
+
+### Plots
+#### Industry code
+```{r df$industry_code, echo=FALSE}
+plot(df$industry_code)
+```
+
+#### Total quarterly wages
+```{r df$total_qtrly_wages, echo=FALSE}
+plot(df$total_qtrly_wages)
+```
+
+```
+After this I saved to csv by doing write.csv(df, 'df_q12020.csv'). I would have added this as a code chunk, but for some reason I'm sturgglign with markdown today and it isn't always putting the output correctly.
+```
+
+## 2 - Explore Some Bivariate Relations
+
+### Read in file again
+```{r}
+df1 <-read.csv('q12020.csv')
+```
+
+### Head()
+```{r}
+head(df1)
+```
+
+### Bivariate Relations
+#### Month 1 to Month 2
+```{r}
+cor.test(df1$month1_emplvl, df1$month2_emplvl, method=c("pearson", "kendall", "spearman"))
+```
+#### Month 2 to Month 3
+```{r}
+cor.test(df1$month2_emplvl, df1$month3_emplvl, method=c("pearson", "kendall", "spearman"))
+```
+
+#### Month 1 to Month 3
+```{r}
+cor.test(df1$month1_emplvl, df1$month3_emplvl, method=c("pearson", "kendall", "spearman"))
+```
+
+## 3 - Organize a Data Report
+
+### Summary of data
+```{r}
+summary(df)
+```
+
+### Structure of data
+```{r}
+str(df)
+```
+
+
+## Results
+```
+1.	The mean, median, and correlation between month 1, month 2, and month 3 employment levels were very close. For this I can see there really wasn’t much change between the three although month 2 had the highest mean at 9.906.
+2.	Looking at the p-values for each of the bi-variate relationships they showed me that the null hypothesis would be rejected for each one.
+3.	Looking at the standard deviations for the months all of them are around the 3.6 - 3.7 range. This means that it is 3.7 to the right of the mean. For normal distribution this would mean it is on the right tail from the middle.
+4.	Looking at the summary and structure of the data if I had planned to use this for a project I would most likely be creating a few subsets of the whole data. I think this would be too much to work with all at once having 42 variables, and just glancing through I don’t think all of them would be relevant to my end problem or hypothesis.
+```
+
+
