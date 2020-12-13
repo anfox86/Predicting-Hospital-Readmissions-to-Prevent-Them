@@ -1,3 +1,2 @@
 # DSC630---Predictive-Analytics
-
-All course work from DSC630 - Predictive Analytics will reside in this repository
+This course assembles topics covered in previous courses into an applied project. Students have the opportunity to find, clean, analyze, and report on a project they define. Advanced methods of analysis using Python and R allow students to delve deeper into their projects.
